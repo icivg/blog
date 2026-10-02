@@ -1,0 +1,12 @@
+/* Theme tweaks — change the accent hue to rebrand the whole site. */
+:root {
+	--sl-hue-accent: 265;
+	--sl-color-accent-low: hsl(var(--sl-hue-accent), 54%, 20%);
+	--sl-color-accent: hsl(var(--sl-hue-accent), 100%, 60%);
+	--sl-color-accent-high: hsl(var(--sl-hue-accent), 100%, 87%);
+}
+:root[data-theme='light'] {
+	--sl-color-accent-low: hsl(var(--sl-hue-accent), 88%, 90%);
+	--sl-color-accent: hsl(var(--sl-hue-accent), 80%, 50%);
+	--sl-color-accent-high: hsl(var(--sl-hue-accent), 80%, 30%);
+}

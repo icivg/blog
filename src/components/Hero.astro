@@ -1,0 +1,243 @@
+---
+// Homepage hero: profile photo framed by decorative shapes, with a gradient accent on the name.
+import { Image } from 'astro:assets';
+import { LinkButton } from '@astrojs/starlight/components';
+
+// Starlight's table of contents links its "Overview" entry to this id.
+const PAGE_TITLE_ID = '_top';
+
+const { data } = Astro.locals.starlightRoute.entry;
+const { title = data.title, tagline, image, actions = [] } = data.hero || {};
+const photo = image && 'file' in image ? image.file : undefined;
+---
+
+<div class="hero">
+	<div class="stack">
+		<h1 id={PAGE_TITLE_ID} data-page-title set:html={title} />
+		{tagline && <div class="tagline" set:html={tagline} />}
+		{
+			actions.length > 0 && (
+				<div class="actions">
+					{actions.map(({ attrs: { class: className, ...attrs } = {}, icon, link: href, text, variant }) => (
+						<LinkButton {href} {variant} icon={icon?.name} class:list={[className]} {...attrs}>
+							{text}
+							{icon?.html && <Fragment set:html={icon.html} />}
+						</LinkButton>
+					))}
+				</div>
+			)
+		}
+	</div>
+
+	{
+		photo && (
+			<div class="portrait" aria-hidden={image?.alt ? undefined : 'true'}>
+				<span class="shape blob" />
+				<span class="shape frame" />
+				<span class="shape dots" />
+				<span class="shape ring" />
+				<span class="shape dot" />
+				<span class="shape plus">+</span>
+				<Image
+					class="photo"
+					src={photo}
+					alt={image?.alt || ''}
+					width={480}
+					loading="eager"
+					decoding="async"
+				/>
+			</div>
+		)
+	}
+</div>
+
+<style>
+	.hero {
+		--grad-a: hsl(265, 90%, 62%);
+		--grad-b: hsl(320, 85%, 62%);
+		--grad-c: hsl(25, 95%, 62%);
+		display: grid;
+		grid-template-columns: 100%;
+		align-items: center;
+		gap: 3rem;
+		padding-block: 2rem 3rem;
+		overflow-x: clip; /* keep the glow from causing horizontal scroll */
+	}
+
+	.stack {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		align-items: center;
+		text-align: center;
+	}
+
+	h1 {
+		font-size: clamp(var(--sl-text-3xl), calc(0.25rem + 5vw), var(--sl-text-6xl));
+		line-height: var(--sl-line-height-headings);
+		font-weight: 700;
+		color: var(--sl-color-white);
+		max-width: 16ch;
+	}
+
+	h1 :global(.name) {
+		background: linear-gradient(100deg, var(--grad-a), var(--grad-b) 55%, var(--grad-c));
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		position: relative;
+		white-space: nowrap;
+	}
+
+	/* Hand-drawn style underline under the name */
+	h1 :global(.name)::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -0.12em;
+		height: 0.18em;
+		background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 9 C 50 2, 100 2, 198 7' stroke='%23d946ef' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")
+			center / 100% 100% no-repeat;
+		opacity: 0.8;
+	}
+
+	.tagline {
+		font-size: clamp(var(--sl-text-base), calc(0.0625rem + 2vw), var(--sl-text-xl));
+		color: var(--sl-color-gray-2);
+		max-width: 50ch;
+	}
+
+	.actions {
+		display: flex;
+		gap: 1rem 2rem;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	/* ---------- Portrait with shapes ---------- */
+	.portrait {
+		position: relative;
+		width: min(78%, 22rem);
+		aspect-ratio: 712 / 904;
+		margin-inline: auto;
+		isolation: isolate;
+	}
+
+	.portrait :global(.photo) {
+		position: relative;
+		z-index: 2;
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 2rem 6rem 2rem 2rem;
+		box-shadow: 0 1.5rem 3rem -1rem hsla(265, 80%, 30%, 0.45);
+	}
+
+	.shape {
+		position: absolute;
+		pointer-events: none;
+	}
+
+	.blob {
+		inset: -12% -14% -10% -12%;
+		z-index: 0;
+		background: radial-gradient(circle at 30% 30%, var(--grad-a), transparent 60%),
+			radial-gradient(circle at 75% 70%, var(--grad-b), transparent 55%),
+			radial-gradient(circle at 80% 15%, var(--grad-c), transparent 45%);
+		filter: blur(40px);
+		opacity: 0.55;
+		border-radius: 50%;
+	}
+
+	.frame {
+		inset: 0;
+		z-index: 1;
+		transform: translate(1.1rem, 1.1rem) rotate(3deg);
+		border: 3px solid var(--grad-a);
+		border-radius: 2rem 6rem 2rem 2rem;
+	}
+
+	.dots {
+		z-index: 1;
+		width: 7rem;
+		height: 7rem;
+		left: -2.5rem;
+		bottom: -1.75rem;
+		background-image: radial-gradient(var(--grad-b) 2px, transparent 2.5px);
+		background-size: 14px 14px;
+		opacity: 0.8;
+	}
+
+	.ring {
+		z-index: 3;
+		width: 4rem;
+		height: 4rem;
+		top: -1.5rem;
+		left: -1.5rem;
+		border: 6px solid var(--grad-c);
+		border-radius: 50%;
+		animation: float 6s ease-in-out infinite;
+	}
+
+	.dot {
+		z-index: 3;
+		width: 1.6rem;
+		height: 1.6rem;
+		right: -0.75rem;
+		top: 38%;
+		border-radius: 50%;
+		background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+		animation: float 5s ease-in-out infinite reverse;
+	}
+
+	.plus {
+		z-index: 3;
+		right: 12%;
+		bottom: -2.25rem;
+		font: 700 3rem/1 var(--sl-font-system);
+		color: var(--grad-a);
+		animation: spin 14s linear infinite;
+	}
+
+	@keyframes float {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-10px);
+		}
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.shape {
+			animation: none;
+		}
+	}
+
+	@media (min-width: 50rem) {
+		.hero {
+			grid-template-columns: 7fr 5fr;
+			gap: 4rem;
+			padding-block: clamp(2.5rem, calc(1rem + 8vmin), 7rem);
+		}
+		.stack {
+			align-items: flex-start;
+			text-align: start;
+		}
+		.actions {
+			justify-content: flex-start;
+		}
+		.portrait {
+			width: min(100%, 24rem);
+		}
+	}
+</style>

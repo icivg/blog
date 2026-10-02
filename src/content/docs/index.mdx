@@ -1,0 +1,34 @@
+---
+title: Hi, I'm Irem Civginer
+description: Irem Civginer's projects, write-ups, and notes.
+template: splash
+hero:
+  title: Hi, I'm <span class="name">Irem Civginer</span>
+  tagline: I work on embedded systems and software, from real-time motor control on STM32 to full-stack web apps. Here are some of the things I have built.
+  image:
+    file: ../../assets/profile.png
+    alt: Irem Civginer
+  actions:
+    - text: See my projects
+      link: /projects/
+      icon: right-arrow
+    - text: About me
+      link: /about/
+      icon: information
+      variant: secondary
+    - text: Get in touch
+      link: /about/#contact
+      icon: email
+      variant: minimal
+---
+
+import ProjectGrid from '../../components/ProjectGrid.astro';
+import AboutTeaser from '../../components/AboutTeaser.astro';
+
+<AboutTeaser />
+
+## Featured projects
+
+<ProjectGrid featured />
+
+[All projects →](/projects/)

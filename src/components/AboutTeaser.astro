@@ -1,0 +1,130 @@
+---
+// Short "About me" preview for the homepage, linking to the full About page.
+import { Icon } from '@astrojs/starlight/components';
+
+const roles = [
+	{ org: 'RoboTeam Twente', role: 'Embedded Engineer' },
+	{ org: 'ESN Enschede', role: 'Activity Coordinator' },
+	{ org: 'Craft Café', role: 'Co-founder' },
+];
+---
+
+<section class="about-teaser not-content">
+	<div class="text">
+		<h2>About me</h2>
+		<p>
+			I'm a student in Enschede who likes building things, from robot firmware to full-stack web
+			apps. Outside my studies, I'm active in student teams and communities.
+		</p>
+		<ul class="roles">
+			{
+				roles.map(({ org, role }) => (
+					<li>
+						<strong>{org}</strong>
+						<span>{role}</span>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+	<div class="links">
+		<a class="primary" href="/about/">More about me <Icon name="right-arrow" /></a>
+		<a class="secondary" href="/about/#skills">Skills</a>
+		<a class="secondary" href="/about/#contact">Contact</a>
+	</div>
+</section>
+
+<style>
+	.about-teaser {
+		position: relative;
+		display: grid;
+		gap: 1.5rem;
+		margin-top: 1rem;
+		padding: 2rem;
+		border-radius: 1.25rem;
+		border: 1px solid var(--sl-color-gray-5);
+		background:
+			radial-gradient(circle at 100% 0%, hsla(320, 85%, 62%, 0.14), transparent 45%),
+			radial-gradient(circle at 0% 100%, hsla(265, 90%, 62%, 0.16), transparent 50%),
+			var(--sl-color-black);
+		overflow: hidden;
+	}
+	h2 {
+		margin: 0 0 0.75rem;
+		font-size: var(--sl-text-h2);
+		color: var(--sl-color-white);
+	}
+	p {
+		margin: 0;
+		max-width: 55ch;
+		color: var(--sl-color-gray-2);
+		line-height: 1.7;
+	}
+	.roles {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		list-style: none;
+		padding: 0;
+		margin: 1.25rem 0 0;
+	}
+	.roles li {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.4rem;
+		padding: 0.35rem 0.85rem;
+		border-radius: 999px;
+		background: var(--sl-color-accent-low);
+		font-size: var(--sl-text-sm);
+	}
+	.roles strong {
+		color: var(--sl-color-white);
+	}
+	.roles span {
+		color: var(--sl-color-accent-high);
+	}
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.75rem;
+	}
+	.links a {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.6rem 1.2rem;
+		border-radius: 999px;
+		font-weight: 600;
+		font-size: var(--sl-text-sm);
+		text-decoration: none;
+		transition: transform 0.15s, border-color 0.15s;
+	}
+	.links a:hover {
+		transform: translateY(-1px);
+	}
+	.primary {
+		background: var(--sl-color-text-accent);
+		color: var(--sl-color-black);
+	}
+	.secondary {
+		border: 1px solid var(--sl-color-gray-5);
+		color: var(--sl-color-white);
+	}
+	.secondary:hover {
+		border-color: var(--sl-color-accent);
+	}
+	@media (min-width: 50rem) {
+		.about-teaser {
+			grid-template-columns: 1fr auto;
+			align-items: end;
+		}
+		.links {
+			flex-direction: column;
+			align-items: stretch;
+		}
+		.links a {
+			justify-content: center;
+		}
+	}
+</style>

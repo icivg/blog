@@ -1,0 +1,147 @@
+---
+import { Image } from 'astro:assets';
+import type { Entry } from '../lib';
+
+interface Props {
+	project: Entry;
+}
+
+const { project } = Astro.props;
+const { title, description, status, stack, repo, demo, cover, period, award } = project.data;
+---
+
+<article class="project-card not-content">
+	{
+		cover && (
+			<a href={`/${project.id}/`} class="cover" tabindex="-1">
+				<Image src={cover} alt="" width={600} />
+			</a>
+		)
+	}
+	<header>
+		<h3><a href={`/${project.id}/`}>{title}</a></h3>
+		{status && <span class={`status status-${status}`}>{status}</span>}
+	</header>
+	{(period || award) && (
+		<div class="sub">
+			{period && <span>{period}</span>}
+			{award && <span class="award">🏆 {award}</span>}
+		</div>
+	)}
+	{description && <p>{description}</p>}
+	{
+		stack.length > 0 && (
+			<ul class="stack">
+				{stack.map((tech) => (
+					<li>{tech}</li>
+				))}
+			</ul>
+		)
+	}
+	<footer>
+		<a href={`/${project.id}/`}>Read more →</a>
+		{repo && <a href={repo} target="_blank" rel="noopener">Source</a>}
+		{demo && <a href={demo} target="_blank" rel="noopener">Live demo</a>}
+	</footer>
+</article>
+
+<style>
+	.project-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		padding: 1.25rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.75rem;
+		background: var(--sl-color-black);
+		transition: border-color 0.15s, transform 0.15s;
+	}
+	.project-card:hover {
+		border-color: var(--sl-color-accent);
+		transform: translateY(-2px);
+	}
+	.cover {
+		display: block;
+		margin: -1.25rem -1.25rem 0;
+		border-bottom: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.75rem 0.75rem 0 0;
+		overflow: hidden;
+	}
+	.cover :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+	}
+	.sub {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1rem;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+	.award {
+		color: var(--sl-color-orange-high);
+	}
+	header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+	}
+	h3 {
+		margin: 0;
+		font-size: var(--sl-text-h4);
+	}
+	h3 a {
+		color: var(--sl-color-white);
+		text-decoration: none;
+	}
+	p {
+		margin: 0;
+		color: var(--sl-color-gray-2);
+		flex: 1;
+	}
+	.status {
+		font-size: var(--sl-text-xs);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		padding: 0.15rem 0.5rem;
+		border-radius: 999px;
+		background: var(--sl-color-gray-6);
+		color: var(--sl-color-gray-2);
+		white-space: nowrap;
+	}
+	.status-active { background: var(--sl-color-green-low); color: var(--sl-color-green-high); }
+	.status-wip { background: var(--sl-color-orange-low); color: var(--sl-color-orange-high); }
+	.status-completed { background: var(--sl-color-blue-low); color: var(--sl-color-blue-high); }
+	.stack {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	.stack li {
+		font-size: var(--sl-text-xs);
+		font-family: var(--sl-font-mono);
+		padding: 0.1rem 0.45rem;
+		border-radius: 0.3rem;
+		background: var(--sl-color-accent-low);
+		color: var(--sl-color-accent-high);
+	}
+	footer {
+		display: flex;
+		gap: 1rem;
+		font-size: var(--sl-text-sm);
+	}
+	footer a {
+		color: var(--sl-color-accent-high);
+		text-decoration: none;
+	}
+	footer a:hover {
+		text-decoration: underline;
+	}
+</style>

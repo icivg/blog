@@ -1,0 +1,66 @@
+---
+// Rendered above project page content via the PageTitle override.
+import { Image } from 'astro:assets';
+
+const { id, data } = Astro.locals.starlightRoute.entry;
+const isProject = id.startsWith('projects/');
+const { status, stack, repo, demo, cover, period, award } = data;
+---
+
+{
+	isProject && (
+		<div class="meta">
+			{period && <span class="period">{period}</span>}
+			{award && <span class="pill award">🏆 {award}</span>}
+			{status && <span class="pill">{status}</span>}
+			{stack.map((tech) => <span class="pill tech">{tech}</span>)}
+			{repo && <a href={repo} target="_blank" rel="noopener">Source ↗</a>}
+			{demo && <a href={demo} target="_blank" rel="noopener">Live demo ↗</a>}
+		</div>
+	)
+}
+{
+	isProject && cover && (
+		<Image class="cover" src={cover} alt={`${data.title} cover image`} width={1200} />
+	)
+}
+
+<style>
+	.meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: 1rem;
+		font-size: var(--sl-text-sm);
+	}
+	.pill {
+		padding: 0.1rem 0.55rem;
+		border-radius: 999px;
+		background: var(--sl-color-gray-6);
+		color: var(--sl-color-gray-2);
+	}
+	.tech {
+		font-family: var(--sl-font-mono);
+		background: var(--sl-color-accent-low);
+		color: var(--sl-color-accent-high);
+	}
+	.period {
+		color: var(--sl-color-gray-3);
+	}
+	.award {
+		background: var(--sl-color-orange-low);
+		color: var(--sl-color-orange-high);
+	}
+	.meta + :global(img.cover) {
+		display: block;
+		width: 100%;
+		height: auto;
+		margin-top: 1.5rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.75rem;
+	}
+	a {
+		color: var(--sl-color-accent-high);
+	}
+</style>

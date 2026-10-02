@@ -1,0 +1,168 @@
+---
+// Contact buttons that reveal email/phone only on click.
+// Values are reversed + base64-encoded at build time so they never appear as plain text in the HTML.
+import { Icon } from '@astrojs/starlight/components';
+
+interface Props {
+	email: string;
+	phone: string;
+	linkedin?: string;
+	location?: string;
+}
+
+const { email, phone, linkedin, location } = Astro.props;
+const encode = (value: string) => Buffer.from([...value].reverse().join('')).toString('base64');
+const telHref = phone.replace(/[^\d+]/g, '').replace(/^0/, '+31');
+---
+
+<div class="contact not-content">
+	<div class="buttons">
+		<button type="button" class="btn" data-kind="mailto" data-value={encode(email)}>
+			<Icon name="email" />
+			<span class="label">Show email</span>
+		</button>
+		<button type="button" class="btn" data-kind="tel" data-value={encode(phone)} data-href={encode(telHref)}>
+			<Icon name="phone" />
+			<span class="label">Show phone number</span>
+		</button>
+		{
+			linkedin && (
+				<a class="btn" href={linkedin} target="_blank" rel="noopener">
+					<Icon name="linkedin" />
+					<span class="label">LinkedIn</span>
+					<Icon name="external" size="0.9em" />
+				</a>
+			)
+		}
+	</div>
+	{location && <p class="location">📍 {location}</p>}
+</div>
+
+<template id="contact-revealed">
+	<span class="revealed">
+		<a class="value"></a>
+		<button type="button" class="copy" aria-label="Copy to clipboard" title="Copy">
+			<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+		</button>
+	</span>
+</template>
+
+<script>
+	const decode = (value: string) => [...atob(value)].reverse().join('');
+	const template = document.getElementById('contact-revealed') as HTMLTemplateElement;
+
+	document.querySelectorAll<HTMLButtonElement>('.contact button.btn').forEach((button) => {
+		button.addEventListener('click', () => {
+			const { kind, value, href } = button.dataset;
+			if (!kind || !value) return;
+			const text = decode(value);
+
+			const revealed = template.content.firstElementChild!.cloneNode(true) as HTMLElement;
+			const link = revealed.querySelector<HTMLAnchorElement>('.value')!;
+			link.textContent = text;
+			link.href = `${kind}:${href ? decode(href) : text}`;
+
+			const copy = revealed.querySelector<HTMLButtonElement>('.copy')!;
+			copy.addEventListener('click', async () => {
+				try {
+					await navigator.clipboard.writeText(text);
+					copy.classList.add('done');
+					copy.title = 'Copied!';
+					setTimeout(() => {
+						copy.classList.remove('done');
+						copy.title = 'Copy';
+					}, 1500);
+				} catch {
+					/* clipboard unavailable — the value is still visible to copy manually */
+				}
+			});
+
+			button.querySelector('.label')!.replaceWith(revealed);
+			button.replaceWith(...wrap(button));
+			link.focus();
+		});
+	});
+
+	// Swap the <button> for a <span> so the nested link and copy button are valid, keeping its content.
+	function wrap(button: HTMLButtonElement) {
+		const span = document.createElement('span');
+		span.className = 'btn open';
+		span.append(...button.childNodes);
+		return [span];
+	}
+</script>
+
+<style is:global>
+	.contact {
+		margin-top: 1rem;
+	}
+	.contact .buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+	.contact .btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.6rem 1.1rem;
+		border-radius: 999px;
+		border: 1px solid var(--sl-color-gray-5);
+		background: var(--sl-color-black);
+		color: var(--sl-color-white);
+		font: inherit;
+		font-size: var(--sl-text-sm);
+		font-weight: 600;
+		text-decoration: none;
+		cursor: pointer;
+		transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+	}
+	.contact button.btn:hover,
+	.contact a.btn:hover {
+		border-color: var(--sl-color-accent);
+		transform: translateY(-1px);
+		box-shadow: 0 0.4rem 1rem -0.5rem hsla(265, 90%, 50%, 0.5);
+	}
+	.contact .btn svg {
+		color: var(--sl-color-accent-high);
+		flex-shrink: 0;
+	}
+	.contact .btn.open {
+		cursor: default;
+		border-color: var(--sl-color-accent);
+		background: var(--sl-color-accent-low);
+	}
+	.contact .btn .revealed {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+	.contact .btn .value {
+		color: var(--sl-color-accent-high);
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+	}
+	.contact .btn .copy {
+		display: inline-flex;
+		padding: 0.2rem;
+		border: 0;
+		border-radius: 0.3rem;
+		background: transparent;
+		color: var(--sl-color-gray-2);
+		cursor: pointer;
+	}
+	.contact .btn .copy svg {
+		color: inherit;
+	}
+	.contact .btn .copy:hover {
+		background: var(--sl-color-gray-6);
+	}
+	.contact .btn .copy.done {
+		color: var(--sl-color-green-high);
+	}
+	.contact .location {
+		margin: 0.75rem 0 0;
+		color: var(--sl-color-gray-3);
+		font-size: var(--sl-text-sm);
+	}
+</style>

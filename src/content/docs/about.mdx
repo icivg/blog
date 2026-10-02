@@ -1,0 +1,72 @@
+---
+title: About me
+description: About Irem Civginer, what Irem is involved in, and how to get in touch.
+---
+
+import Role from '../../components/Role.astro';
+import Skills from '../../components/Skills.astro';
+import ContactButtons from '../../components/ContactButtons.astro';
+import roboteamTeam from '../../assets/about/roboteam-team.jpg';
+import esnTeam from '../../assets/about/esn-team.jpg';
+import esnEvent from '../../assets/about/esn-event.jpg';
+import craftCrafting from '../../assets/about/craft-cafe-crafting.jpg';
+import craftPoster from '../../assets/about/craft-cafe-poster.jpg';
+
+Hi! I'm Irem, a student in Enschede, Netherlands. I like building things, whether that's firmware for a robot, a full-stack web app. Outside my studies I spend most of my time in student teams and communities, bringing people together and making things happen.
+
+## What I'm involved in
+
+<Role
+	org="RoboTeam Twente"
+	role="Embedded Engineer"
+	link="https://roboteamtwente.nl"
+	photos={[{ src: roboteamTeam, alt: 'The RoboTeam Twente team in matching purple polos, posing on rocks in a quarry' }]}
+>
+	I'm part of RoboTeam Twente, a student team that designs and builds autonomous soccer robots to compete in RoboCup. As an embedded engineer, I work on the low-level software that runs on the robots' hardware.
+</Role>
+
+<Role
+	org="ESN Enschede"
+	role="Activity Coordinator"
+	photos={[
+		{ src: esnEvent, alt: 'International students crafting paper lanterns during a cultural evening in a lecture hall' },
+		{ src: esnTeam, alt: 'The ESN activity team posing together with an orangutan plush mascot' },
+	]}
+>
+	At the Erasmus Student Network, I help plan and run activities for international students, from cultural evenings to social events. The goal is to help people who are new to Enschede find friends and feel at home.
+</Role>
+
+<Role
+	org="Craft Café"
+	role="Co-founder"
+	photos={[
+		{ src: craftPoster, alt: 'Craft Café poster: Kleine Zaal, Vrijhof, every Wednesday 18:00 to 20:30' },
+		{ src: craftCrafting, alt: 'A table covered in craft supplies with a half-finished holographic paper project' },
+	]}
+>
+	I co-founded Craft Café, a weekly drop-in crafting evening for students. Every Wednesday from 18:00 to 20:30 in the Kleine Zaal at the Vrijhof, people come together to make things with their hands, try something new, and unwind after a day of studying.
+</Role>
+
+## Skills
+
+<Skills
+	groups={[
+		{ label: 'Programming languages', items: ['Java', 'SQL', 'Python', 'C', 'Embedded C', 'JavaScript', 'Dart'] },
+		{ label: 'Frameworks & tools', items: ['Vue.js', 'Flutter', 'Firebase', 'FreeRTOS', 'Git', 'PostgreSQL'] },
+		{
+			label: 'Languages',
+			items: ['Turkish · Native (C2)', 'English · Fluent (C2)', 'Dutch · Intermediate (B1–B2, certified)', 'German · A2'],
+		},
+	]}
+/>
+
+## Contact
+
+Want to get in touch? Click a button to see my details.
+
+<ContactButtons
+	email="civginer.irem@gmail.com"
+	phone="06 45110522"
+	linkedin="https://www.linkedin.com/in/irem-civginer-a441b6376/"
+	location="Enschede, Netherlands"
+/>
