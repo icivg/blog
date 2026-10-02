@@ -5,14 +5,14 @@ import { Icon } from '@astrojs/starlight/components';
 
 interface Props {
 	email: string;
-	phone: string;
+	phone?: string;
 	linkedin?: string;
 	location?: string;
 }
 
 const { email, phone, linkedin, location } = Astro.props;
 const encode = (value: string) => Buffer.from([...value].reverse().join('')).toString('base64');
-const telHref = phone.replace(/[^\d+]/g, '').replace(/^0/, '+31');
+const telHref = phone?.replace(/[^\d+]/g, '').replace(/^0/, '+31');
 ---
 
 <div class="contact not-content">
@@ -21,10 +21,14 @@ const telHref = phone.replace(/[^\d+]/g, '').replace(/^0/, '+31');
 			<Icon name="email" />
 			<span class="label">Show email</span>
 		</button>
-		<button type="button" class="btn" data-kind="tel" data-value={encode(phone)} data-href={encode(telHref)}>
-			<Icon name="phone" />
-			<span class="label">Show phone number</span>
-		</button>
+		{
+			phone && telHref && (
+				<button type="button" class="btn" data-kind="tel" data-value={encode(phone)} data-href={encode(telHref)}>
+					<Icon name="phone" />
+					<span class="label">Show phone number</span>
+				</button>
+			)
+		}
 		{
 			linkedin && (
 				<a class="btn" href={linkedin} target="_blank" rel="noopener">

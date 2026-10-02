@@ -86,9 +86,12 @@ const { title, description, status, stack, repo, demo, cover, period, award } = 
 	}
 	header {
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
+		flex-direction: column;
+		align-items: flex-start;
 		gap: 0.5rem;
+	}
+	header .status {
+		order: -1;
 	}
 	h3 {
 		margin: 0;
