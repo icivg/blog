@@ -9,7 +9,7 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Irem Civginer',
-			description: 'Embedded systems and software projects by Irem Civginer.',
+			description: 'Software projects by Irem Civginer: full-stack web development, system design, and more.',
 			social: [
 				{ icon: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/irem-civginer-a441b6376/' },
 				{ icon: 'email', label: 'Contact', href: '/about/#contact' },

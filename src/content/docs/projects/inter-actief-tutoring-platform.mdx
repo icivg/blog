@@ -1,18 +1,46 @@
 ---
 title: Inter-Actief Tutoring Platform
 description: A full-stack tutoring platform for the Inter-Actief study association, built with Java and Vue.js.
-cover: ../../../assets/projects/tutoring-platform.png
+cover: ../../../assets/projects/tutoring-platform/cover.png
 period: 2025 · 10 weeks
 award: Best Project Award, M4 2025
 date: 2025-06-01
 status: completed
+sidebar:
+  order: 3
 featured: true
 stack: [Java, Vue.js]
 ---
 
+import Gallery from '../../../components/Gallery.astro';
+import awardTeam from '../../../assets/projects/tutoring-platform/award-team.jpg';
+import tutorSearch from '../../../assets/projects/tutoring-platform/tutor-search.png';
+import tutorDashboard from '../../../assets/projects/tutoring-platform/tutor-dashboard.png';
+import tutorProfileForm from '../../../assets/projects/tutoring-platform/tutor-profile-form.png';
+
 ## About the project
 
-I co-developed a full-stack tutoring platform for the Inter-Actief study association. It won the university's **M4 2025 Best Project Award**, and the association asked to use it for real.
+I co-developed a full-stack tutoring platform for the Inter-Actief study association. Students can find a tutor that fits them, and tutors can offer their help. Our team won the **Best Project award of the Data & Information module (M4) 2024–2025**, presented by Inter-Actief on 2 July 2025, and the association asked to use the platform for real.
+
+<Gallery
+	photos={[
+		{ src: awardTeam, alt: 'Six team members smiling in front of an orange wall, each holding a Best Project certificate from Inter-Actief', caption: 'Our team with the Best Project certificates', wide: true },
+	]}
+/>
+
+## Features
+
+- **Find a tutor:** search by tutor name or subject and filter by study, availability, location, gender and price range. You can also choose to see only tutors who were a teaching assistant for that subject.
+- **Become a tutor:** tutors create a profile with the subjects they teach, the courses they were a TA for, and where they can meet.
+- **Admin approval:** new tutor accounts stay pending until an administrator approves them.
+
+<Gallery
+	photos={[
+		{ src: tutorSearch, alt: 'Tutor search bar with fields for name and subject, a "was TA" checkbox, dropdowns for study, availability, location and gender, and a price range slider', caption: 'Searching for tutors with filters', wide: true },
+		{ src: tutorDashboard, alt: 'Tutor dashboard reading "Welcome, John" with a notice that the account is pending approval, a profile card, and Browse Tutors and Settings buttons', caption: 'Tutor dashboard while the account waits for approval', wide: true },
+		{ src: tutorProfileForm, alt: 'Profile editing form listing subjects taught and TA courses with checkboxes, add and remove buttons, a university field, and tutoring location options: Enschede, Hengelo, Campus and Other', caption: 'Editing a tutor profile: subjects, TA courses and locations', narrow: true },
+	]}
+/>
 
 ## What I worked on
 

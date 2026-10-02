@@ -7,12 +7,15 @@ import Role from '../../components/Role.astro';
 import Skills from '../../components/Skills.astro';
 import ContactButtons from '../../components/ContactButtons.astro';
 import roboteamTeam from '../../assets/about/roboteam-team.jpg';
+import roverPhoto from '../../assets/projects/mars-rover/rover.jpg';
 import esnTeam from '../../assets/about/esn-team.jpg';
 import esnEvent from '../../assets/about/esn-event.jpg';
 import craftCrafting from '../../assets/about/craft-cafe-crafting.jpg';
 import craftPoster from '../../assets/about/craft-cafe-poster.jpg';
 
-Hi! I'm Irem, a student in Enschede, Netherlands. I like building things, whether that's firmware for a robot, a full-stack web app. Outside my studies I spend most of my time in student teams and communities, bringing people together and making things happen.
+Hi! I'm Irem, a software developer and student in Enschede, Netherlands. I love building full-stack applications, with Java and PostgreSQL on the backend and Vue.js on the frontend, and I enjoy the system design that ties them together: how components, data and services fit, and how to keep them maintainable as they grow. I care about making software that's genuinely useful, so I like to start from user research and testing. My [award-winning tutoring platform](/projects/inter-actief-tutoring-platform/) is one example.
+
+I've also worked close to the hardware, writing embedded C with FreeRTOS on STM32 microcontrollers, so I'm comfortable anywhere from the interface down to the metal. Outside my studies I spend most of my time in student teams and communities, bringing people together and making things happen.
 
 ## What I'm involved in
 
@@ -20,20 +23,24 @@ Hi! I'm Irem, a student in Enschede, Netherlands. I like building things, whethe
 	org="RoboTeam Twente"
 	role="Embedded Engineer"
 	link="https://roboteamtwente.nl"
-	photos={[{ src: roboteamTeam, alt: 'The RoboTeam Twente team in matching purple polos, posing on rocks in a quarry' }]}
+	photos={[
+		{ src: roverPhoto, alt: "RoboTeam Twente's six-wheeled Mars rover with a robotic arm, on stage under purple lights" },
+		{ src: roboteamTeam, alt: 'The RoboTeam Twente team in matching purple polos, posing on rocks in a quarry' },
+	]}
 >
-	I'm part of RoboTeam Twente, a student team that designs and builds autonomous soccer robots to compete in RoboCup. As an embedded engineer, I work on the low-level software that runs on the robots' hardware.
+	At RoboTeam Twente, we designed and built a Mars rover to compete in the European Rover Challenge (ERC), an international competition for student-built planetary rovers. As an embedded engineer, I led the [rover's motor driving system](/projects/mars-rover-motor-driving/), writing real-time firmware with FreeRTOS on STM32 microcontrollers.
 </Role>
 
 <Role
-	org="ESN Enschede"
+	org="ESN Twente"
+	link="https://esntwente.nl"
 	role="Activity Coordinator"
 	photos={[
 		{ src: esnEvent, alt: 'International students crafting paper lanterns during a cultural evening in a lecture hall' },
 		{ src: esnTeam, alt: 'The ESN activity team posing together with an orangutan plush mascot' },
 	]}
 >
-	At the Erasmus Student Network, I help plan and run activities for international students, from cultural evenings to social events. The goal is to help people who are new to Enschede find friends and feel at home.
+	At the Erasmus Student Network, I help plan and run activities for international students, from cultural evenings to social events. The goal is to help people who are new to Twente find friends and feel at home.
 </Role>
 
 <Role
@@ -52,7 +59,8 @@ Hi! I'm Irem, a student in Enschede, Netherlands. I like building things, whethe
 <Skills
 	groups={[
 		{ label: 'Programming languages', items: ['Java', 'SQL', 'Python', 'C', 'Embedded C', 'JavaScript', 'Dart'] },
-		{ label: 'Frameworks & tools', items: ['Vue.js', 'Flutter', 'Firebase', 'FreeRTOS', 'Git', 'PostgreSQL'] },
+		{ label: 'Frameworks & tools', items: ['Vue.js', 'FreeRTOS', 'Git', 'PostgreSQL'] },
+		{ label: 'Engineering', items: ['System Design', 'User Research', 'Usability Testing'] },
 		{
 			label: 'Languages',
 			items: ['Turkish · Native (C2)', 'English · Fluent (C2)', 'Dutch · Intermediate (B1–B2, certified)', 'German · A2'],

@@ -80,6 +80,10 @@ const { org, role, link, photos = [] } = Astro.props;
 		color: var(--sl-color-gray-2);
 		line-height: 1.7;
 	}
+	.body :global(a) {
+		color: var(--sl-color-text-accent);
+		text-underline-offset: 0.2em;
+	}
 	.body :global(p) {
 		margin: 0 0 0.75rem;
 	}

@@ -1,17 +1,33 @@
 ---
 title: Mars Rover Motor Driving System
-description: Embedded motor control for a Mars rover using FreeRTOS on STM32 microcontrollers.
-cover: ../../../assets/projects/mars-rover.png
+description: Embedded motor control for RoboTeam Twente's Mars rover, built for the European Rover Challenge, using FreeRTOS on STM32 microcontrollers.
+cover: ../../../assets/projects/mars-rover/rover.jpg
 period: 2025 – 2026 · 12 hours per week
 date: 2026-01-01
-status: active
+status: completed
+sidebar:
+  order: 2
 featured: true
 stack: [C, FreeRTOS, STM32, PWM]
 ---
 
+import Gallery from '../../../components/Gallery.astro';
+import teamStage from '../../../assets/projects/mars-rover/team-stage.jpg';
+import testBench from '../../../assets/projects/mars-rover/motor-test-bench.jpg';
+import wheelsVideo from '../../../assets/projects/mars-rover/wheels-test.mp4';
+import wheelsPoster from '../../../assets/projects/mars-rover/wheels-test-poster.jpg';
+
 ## About the project
 
-I developed and led the work on the embedded motor control systems for a Mars rover. The system runs FreeRTOS on STM32 microcontrollers and talks to the motor drivers over PWM.
+At [RoboTeam Twente](/about/#what-im-involved-in), we designed and built a Mars rover to compete in the **European Rover Challenge (ERC)**. I developed and led the work on the rover's embedded motor control system. It runs FreeRTOS on STM32 microcontrollers and talks to the motor drivers over PWM.
+
+<Gallery
+	photos={[
+		{ video: wheelsVideo, poster: wheelsPoster, alt: "Close-up of the rover's wheels spinning during a motor test in the workshop", caption: 'The wheels running', tall: true },
+		{ src: teamStage, alt: 'The RoboTeam Twente team in purple polos on a theatre stage, presenting the rover', caption: 'Presenting the rover with the team' },
+		{ src: testBench, alt: 'An STM32 Nucleo development board wired to a brushless motor and a breadboard on a desk', caption: 'Testing motor control on the bench' },
+	]}
+/>
 
 ## What I worked on
 

@@ -1,27 +1,40 @@
 ---
 title: Basketball Posture Analysis Software
-description: A real-time posture feedback prototype for beginner basketball players, built with MediaPipe.
-cover: ../../../assets/projects/basketball-posture.png
+description: A web app that gives beginner basketball players real-time feedback on their shooting form, built with Vue.js and MediaPipe Pose.
+cover: ../../../assets/projects/basketball-posture/recording-live.jpg
 period: 2025 – 2026 · 10 weeks
 date: 2025-12-01
 status: completed
+sidebar:
+  order: 1
 featured: true
-stack: [JavaScript, MediaPipe, User Research]
+stack: [Vue.js, JavaScript, MediaPipe Pose, User Research]
 ---
+
+import Gallery from '../../../components/Gallery.astro';
+import shotHistory from '../../../assets/projects/basketball-posture/shot-history.png';
+import shotFeedback from '../../../assets/projects/basketball-posture/shot-feedback.png';
+import skeletonFeedback from '../../../assets/projects/basketball-posture/skeleton-feedback.png';
 
 ## About the project
 
-A prototype that detects posture in real time to give feedback to beginner basketball players.
+Beginner basketball players often don't know what's wrong with their shooting form, and they rarely have a coach watching. Our user research confirmed that need, so we built a web app that watches your shot through the camera and tells you what to fix.
+
+You record a shot, and the app tracks your body with a pose-detection skeleton. It then checks your shooting elbow, knee bend, shoulder alignment, release extension and posture against target ranges, and explains what went well and what to improve.
 
 ## What I worked on
 
-- **User research:** led the research and testing that showed beginners needed posture feedback
-- **Design:** co-designed the prototype from those findings
-- **Development:** built real-time posture detection in the browser with MediaPipe and JavaScript
+- **Design and implementation:** I helped design and implement the hi-fi prototype as a web application using **Vue.js** and **MediaPipe Pose**. That included camera recording, voice guidance, and visual feedback features.
+- **User testing:** I took part in testing the prototype with users, observing how they interacted with camera positioning, feedback, history, and filtering features.
+- **Improvements:** based on the test results, I helped identify usability issues and suggest improvements such as hands-free recording, clearer favorites functionality, and more consistent feedback.
 
-## How it works
-
-_Describe the pipeline here: camera input → MediaPipe pose landmarks → posture checks → feedback._
+<Gallery
+	photos={[
+		{ src: skeletonFeedback, alt: 'Shot analysis page showing a recorded shot with a pose-detection skeleton drawn over the player, next to an overall assessment, key shooting metrics in degrees, and feedback for the shooting elbow', caption: 'Analysing a shot with the skeleton overlay', wide: true },
+		{ src: shotHistory, alt: 'Shot history page listing a recorded shot with hand and posture checks, a short feedback summary, View Feedback and Delete buttons, and a progress summary with total recordings, favorites, analyzed shots and total time', caption: 'Shot history with favorites, sorting and progress stats', wide: true },
+		{ src: shotFeedback, alt: 'Shot analysis feedback page with an overall assessment of elbow, knee bend, shoulder alignment, release extension and posture, key shooting metrics in degrees, and a list of strengths and improvement suggestions', caption: 'Feedback after a shot: metrics, strengths and suggestions', narrow: true },
+	]}
+/>
 
 ## What I learned
 
